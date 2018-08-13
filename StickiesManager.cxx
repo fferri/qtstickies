@@ -1,4 +1,5 @@
 // Copyright (C) 2015-present Francois Baldassari
+// Copyright (C) 2018 Federico Ferri
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -17,7 +18,7 @@
 
 #include <QApplication>
 #include <QDebug>
-#include <QTGlobal>
+#include <QtGlobal>
 #include <QDir>
 #include <QMessageBox>
 #include <QStandardPaths>
