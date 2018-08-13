@@ -4,7 +4,7 @@
 
 QT += sql widgets
 TEMPLATE = app
-TARGET = qtstickies.app
+TARGET = qtstickies
 DEPENDPATH += .
 INCLUDEPATH += .
 
