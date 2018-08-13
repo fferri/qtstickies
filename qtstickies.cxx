@@ -1,4 +1,5 @@
 // Copyright (C) 2015 Francois Baldassari
+// Copyright (C) 2018 Federico Ferri
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -82,6 +83,12 @@ int main(int argc, char **argv)
   trayIcon->setIcon(QIcon(":/sticky-note.png"));
   trayIcon->setContextMenu(appMenu);
   trayIcon->show();
+
+#ifdef __APPLE__
+  QMenuBar *menuBar = new QMenuBar(0);
+  menuBar->addMenu(fileMenu);
+  menuBar->addMenu(colorMenu);
+#endif
 
   return app.exec();
 }
