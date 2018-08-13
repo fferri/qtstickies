@@ -128,7 +128,13 @@ void StickiesManager::handleMenuWillShow() {
   Q_ASSERT_X(menu != NULL, __FILE__, "MenuWillShow called by something not a menu");
   StickyWindow *topmostSticky = currentSticky();
   foreach (QAction *a, menu->actions()) {
-    a->setChecked(topmostSticky->getColor().compare(a->data().toString()) == 0);
+    if(topmostSticky) {
+      a->setEnabled(true);
+      a->setChecked(topmostSticky->getColor().compare(a->data().toString()) == 0);
+    }
+    else {
+      a->setEnabled(false);
+    }
   }
 }
 
