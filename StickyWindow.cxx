@@ -135,7 +135,11 @@ void StickyWindow::handleHeaderCollapse() {
     setFixedHeight(QWIDGETSIZE_MAX);
     resize(m_size);
   } else {
-    m_header->setText(m_textBox->toPlainText().split('\n')[0]);
+    QString line0 = m_textBox->toPlainText().split('\n')[0];
+    QFontMetrics metrics(m_header->m_label->font());
+    int width = m_header->m_label->width() - 6;
+    QString clippedText = metrics.elidedText(line0, Qt::ElideRight, width);
+    m_header->setText(clippedText);
     m_textBox->hide();
     m_grip->hide();
     m_isCollapsed = true;
