@@ -23,8 +23,7 @@
 #define HEADER_HEIGHT 13
 
 StickyWindow::StickyWindow(QWidget *parent, int id, QString text, QString color) : QWidget(parent) {
-  setWindowFlags(Qt::WindowStaysOnTopHint | // Always on top
-                 Qt::CustomizeWindowHint  | // Don't show window decorators
+  setWindowFlags(Qt::CustomizeWindowHint  | // Don't show window decorators
                  Qt::FramelessWindowHint);
 
   m_layout = new QVBoxLayout(this);
