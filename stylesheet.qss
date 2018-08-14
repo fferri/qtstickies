@@ -98,16 +98,12 @@ QSizeGrip {
     height: 16px;
 }
 
-HeaderLabel {
-  font: 9px "Helvetica";
+QLabel, HeaderLabel {
+  font: 11px "Helvetica";
   font-weight: 200;
   padding-top: 1px;
-  padding-left: 25px;
-  border-style: solid;
-  border-top-style: none;
-  border-left-style: none;
-  border-right-style: none;
-  border-width: 1px;
+  padding-left: 2px;
+  border: none;
 }
 
 

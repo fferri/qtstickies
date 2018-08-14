@@ -77,6 +77,7 @@ StickyWindow *StickiesManager::restoreStickies() {
                                  query.value(textField).toString(),
                                  query.value(colorField).toString());
     connect(curSticky, SIGNAL (contentChanged(StickyWindow *)), this, SLOT (handleStickyChanged(StickyWindow *)));
+    connect(curSticky, SIGNAL (closed(int)), this, SLOT (handleStickyClosed(int)));
     curSticky->setGeometry(query.value(posXField).toInt(),
                            query.value(posYField).toInt(),
                            query.value(widthField).toInt(),
@@ -93,6 +94,7 @@ StickyWindow *StickiesManager::newSticky() {
   int id = qrand();
   StickyWindow *sticky = new StickyWindow(0, id);
   connect(sticky, SIGNAL (contentChanged(StickyWindow *)), this, SLOT (handleStickyChanged(StickyWindow *)));
+  connect(sticky, SIGNAL (closed(int)), this, SLOT (handleStickyClosed(int)));
   sticky->show();
   return sticky;
 }
@@ -157,4 +159,14 @@ void StickiesManager::handleStickyChanged(StickyWindow *sticky) {
   }
 }
 
+void StickiesManager::handleStickyClosed(int id) {
+  QSqlQuery query(m_db);
+  query.prepare("DELETE FROM " STICKIES_TABLE_NAME " WHERE id = :id");
+  query.bindValue(":id", id);
+  if (!query.exec()) {
+    qDebug() << "Failed to exec query because";
+    qDebug() << query.lastError().databaseText();
+    qDebug() << query.lastError().driverText();
+  }
+}
 

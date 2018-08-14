@@ -1,4 +1,5 @@
 // Copyright (C) 2015 Francois Baldassari
+// Copyright (C) 2018 Federico Ferri
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -15,15 +16,52 @@
 
 #include "HeaderLabel.h"
 
-#include <QWidget>
 #include <QString>
 #include <QMouseEvent>
+#include <QPainter>
 
-HeaderLabel::HeaderLabel(const QString& text, QWidget* parent) : QLabel(parent) {
-  this->setText(text);
+CloseButton::CloseButton(QWidget *parent) : QPushButton(parent) {
+  setStyleSheet("border: none;");
+  setFlat(true);
+}
+
+void CloseButton::paintEvent(QPaintEvent *e) {
+  QSize sz = size();
+  QPainter p(this);
+  const int b = 2;
+  p.drawLine(b, b, sz.width() - 2 * b + 1, sz.height() - 2 * b + 1);
+  p.drawLine(b, sz.height() - 2 * b + 1, sz.width() - 2 * b + 1, b);
+}
+
+HeaderLabel::HeaderLabel(const QString& text, QWidget* parent) : QWidget(parent)
+{
+  m_layout = new QHBoxLayout(this);
+  m_layout->setContentsMargins(QMargins());
+  m_layout->setSpacing(0);
+
+  m_label = new QLabel(text, this);
+  m_layout->addWidget(m_label);
+
+  m_closeButton = new CloseButton(this);
+  connect(m_closeButton, SIGNAL(clicked()), this, SLOT(onCloseClicked()));
+  m_layout->addWidget(m_closeButton);
 }
 
 HeaderLabel::~HeaderLabel() {
+}
+
+void HeaderLabel::setFixedHeight(int height) {
+  m_label->setFixedHeight(height);
+  m_closeButton->setIconSize(QSize(height, height));
+  m_closeButton->setFixedSize(QSize(height, height));
+}
+
+void HeaderLabel::setText(const QString &text) {
+  m_label->setText(text);
+}
+
+void HeaderLabel::onCloseClicked() {
+  emit closeClicked();
 }
 
 void HeaderLabel::mouseDoubleClickEvent(QMouseEvent* event) {

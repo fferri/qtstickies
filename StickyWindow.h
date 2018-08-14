@@ -1,4 +1,5 @@
-// Copyright (C) 2015-present Francois Baldassari
+// Copyright (C) 2015 Francois Baldassari
+// Copyright (C) 2018 Federico Ferri
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -38,8 +39,10 @@ protected:
 
 signals:
   void contentChanged(StickyWindow *sticky);
+  void closed(int id);
 
 private slots:
+  void handleClose();
   void handleHeaderCollapse();
   void handleHeaderPressed(QMouseEvent *e);
   void handleHeaderMoved(QMouseEvent *e);

@@ -1,4 +1,5 @@
 // Copyright (C) 2015 Francois Baldassari
+// Copyright (C) 2018 Federico Ferri
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -26,6 +27,7 @@ public:
   StickyWindow *currentSticky();
 private slots:
   void handleStickyChanged(StickyWindow *sticky);
+  void handleStickyClosed(int id);
   void handleNewSticky();
   void handleColorChanged(QAction *action);
   void handleMenuWillShow();

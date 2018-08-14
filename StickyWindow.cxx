@@ -1,4 +1,5 @@
-// Copyright (C) 2015-present Francois Baldassari
+// Copyright (C) 2015 Francois Baldassari
+// Copyright (C) 2018 Federico Ferri
 //
 // This program is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -46,6 +47,7 @@ StickyWindow::StickyWindow(QWidget *parent, int id, QString text, QString color)
   m_id = id;
   setProperty("stickyColor", color);
 
+  connect(m_header, SIGNAL (closeClicked()), this, SLOT (handleClose()));
   connect(m_header, SIGNAL (doubleClicked()), this, SLOT (handleHeaderCollapse()));
   connect(m_header, SIGNAL (pressed(QMouseEvent *)), this, SLOT (handleHeaderPressed(QMouseEvent *)));
   connect(m_header, SIGNAL (moved(QMouseEvent *)), this, SLOT (handleHeaderMoved(QMouseEvent *)));
@@ -118,6 +120,11 @@ void StickyWindow::resizeEvent(QResizeEvent *event) {
 void StickyWindow::handleTextChanged() {
   // FIXME we should probably emit this less often
   emit contentChanged(this);
+}
+
+void StickyWindow::handleClose() {
+  close();
+  emit closed(m_id);
 }
 
 void StickyWindow::handleHeaderCollapse() {
