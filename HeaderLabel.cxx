@@ -25,10 +25,11 @@ CloseButton::CloseButton(QWidget *parent) : QPushButton(parent) {
   setFlat(true);
 }
 
-void CloseButton::paintEvent(QPaintEvent *e) {
+void CloseButton::paintEvent(QPaintEvent *) {
   QSize sz = size();
   QPainter p(this);
   const int b = 2;
+  p.setPen(QPen(QColor(0, 0, 0, 64)));
   p.drawLine(b, b, sz.width() - 2 * b + 1, sz.height() - 2 * b + 1);
   p.drawLine(b, sz.height() - 2 * b + 1, sz.width() - 2 * b + 1, b);
 }
